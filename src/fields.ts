@@ -35,17 +35,23 @@ export class Field implements FieldInterface {
     protected static defaultRules: Rules = {
         required: true
     };
-    protected rules: Rules;
+    protected _rules: Rules;
     protected validators: Validator[] = [];
 
     constructor(rules: Rules) {
-        this.rules = {
+        this._rules = {
             ...this.constructor.defaultRules,
             ...rules
         };
-        if (this.rules.required) {
+        if (this._rules.required) {
             this.validators.push(new RequiredValidator());
         }
+    }
+
+    get rules() {
+        return {
+            ...this._rules
+        };
     }
 
     getValidationErrors(value: any): FieldValidationErrors {
@@ -82,7 +88,7 @@ export interface TextRules extends Rules {
 
 export class TextField extends Field {
     protected static baseType: string = 'string';
-    protected rules: TextRules;
+    protected _rules: TextRules;
     protected static defaultRules: TextRules = {
         ...Field.defaultRules,
         allowEmpty: false,
@@ -92,7 +98,7 @@ export class TextField extends Field {
     constructor(rules: TextRules) {
         super(rules);
 
-        const { allowEmpty, minLength, maxLength } = this.rules;
+        const { allowEmpty, minLength, maxLength } = this._rules;
 
         if (!allowEmpty) {
             this.validators.push(new NotEmptyValidator());
@@ -120,8 +126,8 @@ export class ShortTextField extends TextField {
         const { maxLength } = rules;
         if (rules.maxLength !== undefined && rules.maxLength > 255) {
             throw new Error(`
-                This class is for fields with a max length under 255.\n
-                If you need a field that uses more characters,\n
+                This class is for fields with a max length under 255.
+                If you need a field that uses more characters,
                 use the LongTextField class instead.
             `);
         }
@@ -142,11 +148,11 @@ export class IntegerField extends Field {
         ...Field.defaultRules,
         step: 1
     };
-    protected rules: IntegerRules;
+    protected _rules: IntegerRules;
 
     constructor(rules: IntegerRules) {
         super(rules);
-        const { min, max, step } = this.rules;
+        const { min, max, step } = this._rules;
         if (step) {
             if (step < 1) {
                 throw new Error('step cannot be less than 1.');
