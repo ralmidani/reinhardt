@@ -1,7 +1,7 @@
 {
   "name": "reinhardt",
   "license": "Apache-2.0",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A small, declarative data modeling and validation library for (potentially) any environment, written in TypeScript",
   "main": "index.js",
   "scripts": {
