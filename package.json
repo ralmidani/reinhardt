@@ -2,13 +2,17 @@
   "name": "reinhardt",
   "license": "Apache-2.0",
   "version": "0.1.0",
-  "description": "A declarative data modeling and validation library for (potentially) any environment, written in TypeScript",
+  "description": "A small, declarative data modeling and validation library for (potentially) any environment, written in TypeScript",
   "main": "index.js",
   "scripts": {
     "prettify": "prettier --write \"**/*.{js,ts}\"",
     "start": "node index.js",
     "test": "jest",
     "test-watch": "npm test -- --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ralmidani/reinhardt.git"
   },
   "keywords": [
     "ORM",
